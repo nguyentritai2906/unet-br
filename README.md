@@ -6,19 +6,19 @@ The original dataset is from [DIBCO challenge](https://vc.ee.duth.gr/dibco2019/)
 I've downloaded and done the pre-processing.
 You can find it in the `dataset` folder.
 
-The data for training contains 106 images, which are far not enough to feed a
+The data for training contains 106 images, which is far from enough to feed a
 deep learning neural network. Thus I use
 [TorchVision](https://github.com/pytorch/vision) `transforms` module
-to augment it by random scale, crop and rotation.
+to augment it by randomly scale, crop and rotation.
 See `train.py` for detail.
 
 <p align = 'center'>
 <img src = 'images/UNetArch.png'>
 </p>
 
-I use 2 block of UNet each with 2 level downsample and 2 level bicubic
-upsampleing layers stack one after the
-other. I find that 2 is the sweet spot between speed and accuracy. Although
+I use 2 block of UNet each with 2 levels downsample and 2 levels bicubic
+upsampling layer, stack it one after the
+other. I found that 2 is the sweet spot between speed and accuracy. Although
 more could further improve the result.
 
 <p align = 'center'>
@@ -30,7 +30,7 @@ rate of 0.001 and validate on my custom dataset. Although I'm unable to
 public the dataset for privacy reasons, you can take a look at the output under
 [result](#result) section.
 
-Loss function for the training is based on the loss function proposed by Sheng
+Loss function used for training is a L2 variance based on the loss function proposed by Sheng
 He and Lambert Schomaker, I called it HeSho loss function. In short, the model
 tries to learn the difference between the degraded and clean image in contrast
 to traditional CNN which learn the clean uniform image, the degration and also
