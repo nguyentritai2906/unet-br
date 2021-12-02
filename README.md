@@ -30,11 +30,11 @@ rate of 0.001 and validate on my custom dataset. Although I'm unable to
 public the dataset for privacy reasons, you can take a look at the output under
 [result](#result) section.
 
-Loss function used for training is a L2 variance based on the loss function proposed by Sheng
-He and Lambert Schomaker, I called it HeSho loss function. In short, the model
-tries to learn the difference between the degraded and clean image in contrast
-to traditional CNN which learn the clean uniform image, the degration and also
-the threshold on the clean image.
+Loss function used for training is Mean Square Error, a L2 variance of the loss
+function proposed by Sheng He and Lambert Schomaker In short, the model tries to
+learn the difference between the degraded and clean image in contrast to
+traditional CNN which learn the clean uniform image, the degration and also the
+threshold on the clean image.
 
 ### Dependencies
 

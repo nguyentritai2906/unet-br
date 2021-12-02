@@ -12,12 +12,10 @@ from torch.utils.data import DataLoader
 from torch.utils.data.sampler import SubsetRandomSampler
 from torchmetrics.functional import accuracy, f1, psnr
 
-from model.criterion import HeScho
 from model.dataset import DIBCO
 from model.model import UNetBR
-from model.transform import (Compose, Grayscale, RandomCrop, RandomEqualize,
-                             RandomInvert, RandomRotation, RandomScale,
-                             ToTensor)
+from model.transform import (Compose, Grayscale, RandomCrop, RandomInvert,
+                             RandomRotation, RandomScale, ToTensor)
 from utils.logger import setup_logger
 
 
@@ -129,7 +127,7 @@ def main():
 
     model.to(device)
 
-    criterion = HeScho()
+    criterion = torch.nn.MSELoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=lr)
     scheduler = lr_scheduler.StepLR(optimizer,
                                     step_size=lr_step_size,
@@ -177,7 +175,8 @@ def main():
 
                 with torch.set_grad_enabled(phase == 'train'):
                     output = model(img)
-                    loss = criterion(output, gt)
+                    loss = criterion(torch.stack((gt, gt)),
+                                     torch.stack(output))
 
                     if phase == 'train':
                         loss.backward()
