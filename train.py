@@ -175,8 +175,9 @@ def main():
 
                 with torch.set_grad_enabled(phase == 'train'):
                     output = model(img)
-                    loss = criterion(torch.stack((gt, gt)),
-                                     torch.stack(output))
+                    loss = criterion(
+                        torch.stack([gt for _ in range(num_blocks)]),
+                        torch.stack(output))
 
                     if phase == 'train':
                         loss.backward()
